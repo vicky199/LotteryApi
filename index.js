@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const Cors = require("./middleware/multipartHandler");
 const app = express();
-let port =process.env.PORT || 3000;
+let port = process.env.PORT || process.env.port || 3000;
 const Response = require("./models/response")
 const route = require("./route/route")
 app.use(Cors);
