@@ -1,0 +1,34 @@
+{
+    "development": {
+        "db": {
+            "HOST": "localhost",
+            "USER": "root",
+            "PASSWORD": "password",
+            "DB": "lottery",
+            "dialect": "mariadb",
+            "pool": {
+                "max": 5,
+                "min": 0,
+                "acquire": 30000,
+                "idle": 10000
+            }
+        },
+        "jwtKey":"HomeStore"
+    },
+    "production": {
+        "db": {
+            "HOST": "sql9.freemysqlhosting.net",
+            "USER": "sql9381738",
+            "PASSWORD": "2t7aIz46HY",
+            "DB": "sql9381738",
+            "dialect": "mariadb",
+            "pool": {
+                "max": 5,
+                "min": 0,
+                "acquire": 30000,
+                "idle": 10000
+            }
+        },
+        "jwtKey":"HomeStore"
+    }
+}
