@@ -21,12 +21,12 @@ module.exports = class LotteryController {
             });
             if (slotCheck) {
                 let slot;
-                if (now.getMinutes() >= 0 && now.getSeconds() >= 0) {
+                if (now.getMinutes() >= 0 || now.getSeconds() >= 0) {
 
-                    slot = await Slot.findOne({ where: { to: hours } })
+                    slot = await Slot.findOne({ where: { from: hours } })
                 }
                 else {
-                    slot = await Slot.findOne({ where: { from: hours } })
+                    slot = await Slot.findOne({ where: { to: hours } })
                 }
                 let slotMap = await SlotDateMap.findOne({
                     where: {
