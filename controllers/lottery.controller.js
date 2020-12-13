@@ -61,7 +61,7 @@ module.exports = class LotteryController {
             }
         }
         catch (err) {
-            return res.createResponse(false, err, "Error Occurred.", 500);
+            return res.createResponse(false, err, err.message, 500);
         }
     }
 
@@ -87,7 +87,7 @@ module.exports = class LotteryController {
             }
         }
         catch (err) {
-            return res.createResponse(false, err, "Error Occurred.", 500)
+            return res.createResponse(false, err, err.message, 500)
         }
     }
 
@@ -107,7 +107,7 @@ module.exports = class LotteryController {
 
         }
         catch (err) {
-            return res.createResponse(false, err, "Error Occurred.", 500)
+            return res.createResponse(false, err, err.message, 500)
         }
     }
 }
