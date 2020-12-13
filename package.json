@@ -15,6 +15,7 @@
     "validatorjs": "^3.19.2"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
