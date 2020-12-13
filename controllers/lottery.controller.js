@@ -19,7 +19,7 @@ module.exports = class LotteryController {
                     ]
                 }
             });
-            if (slotCheck.id) {
+            if (slotCheck) {
                 let slot;
                 if (now.getMinutes() >= 0 && now.getSeconds() >= 0) {
 
@@ -57,7 +57,7 @@ module.exports = class LotteryController {
                     }
                 })
                 const lottery = await Lottery.create({ mobileNo: body.mobileNo, number: body.number, slotDateMapId: slotMap.id });
-                return res.createResponse(true, 'result', `Your Ticket has placed in ${slot.from}-${slot.to} slot.`, 200);
+                return res.createResponse(true, { slot: `${slot.from}-${slot.to}`, date: now }, `Your Ticket has placed in ${slot.from}-${slot.to} slot.`, 200);
             }
         }
         catch (err) {
