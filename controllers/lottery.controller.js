@@ -3,12 +3,36 @@ const Slot = require("../models/slot.model");
 const SlotDateMap = require("../models/slotDateMap.model");
 const Result = require("../models/result.model");
 const { Op } = require("sequelize");
+const moment = require('moment-timezone');
 module.exports = class LotteryController {
 
+    async getLotteryNumber(req, res, next) {
+        try {
+            let data = await Slot.findAll({
+                include: [{
+                    required: true,
+                    model: SlotDateMap,
+                    include: [{
+                        required: true,
+                        model: Lottery,
+                        order:'id DESC',
+                        where: {
+                            mobileNo: req.query.mobileNo
+                        },
+                    }]
+                }]
+            })
+            return res.createResponse(true, data, "fetch successfully.", 200);
+        }
+        catch (err) {
+            return res.createResponse(false, err, err.message, 500);
+        }
+    }
     async addLotteryNumber(req, res, next) {
         let body = req.body;
-        let now = new Date();
-        let hours = now.getHours()
+        let now = moment(new Date());
+        now.tz("Asia/Kolkata");
+        let hours = now.hours()
         try {
             let id;
             let slotCheck = await Slot.findAll({
@@ -19,9 +43,9 @@ module.exports = class LotteryController {
                     ]
                 }
             });
-            if (slotCheck) {
+            if (slotCheck.length) {
                 let slot;
-                if (now.getMinutes() >= 0 || now.getSeconds() >= 0) {
+                if (now.minutes() >= 0 || now.seconds() >= 0) {
                     slot = await Slot.findOne({ where: { from: hours } })
                 }
                 else {
@@ -46,6 +70,10 @@ module.exports = class LotteryController {
                         to: { [Op.gt]: hours },
                     }
                 });
+                if(!slot)
+                {
+                    return res.createResponse(false, {}, "No active slot is available", 500);
+                }
                 let slotMap = await SlotDateMap.findOne({
                     where: {
                         slotId: {

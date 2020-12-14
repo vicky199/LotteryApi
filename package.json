@@ -9,6 +9,7 @@
     "express": "^5.0.0-alpha.8",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.4.2",
+    "moment-timezone": "^0.5.32",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.5",
